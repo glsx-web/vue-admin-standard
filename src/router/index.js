@@ -50,19 +50,19 @@ export const asyncRouterMap = [
     component: Layout,
     redirect: '/example/table',
     name: 'Example',
-    meta: { title: 'Example', icon: 'example' },
+    meta: { title: 'Example', icon: 'example', permission: '/example' },
     children: [
       {
         path: 'table',
         name: 'Table',
         component: () => import('@/views/table/index'),
-        meta: { title: 'Table', icon: 'table' }
+        meta: { title: 'Table', icon: 'table', permission: '/example/table' }
       },
       {
         path: 'tree',
         name: 'Tree',
         component: () => import('@/views/tree/index'),
-        meta: { title: 'Tree', icon: 'tree' }
+        meta: { title: 'Tree', icon: 'tree', permission: '/example/tree' }
       }
     ]
   },
@@ -70,12 +70,14 @@ export const asyncRouterMap = [
   {
     path: '/form',
     component: Layout,
+    name: 'Form',
+    meta: { permission: '/form' },
     children: [
       {
         path: 'index',
         name: 'Form',
         component: () => import('@/views/form/index'),
-        meta: { title: 'Form', icon: 'form' }
+        meta: { title: 'Form', icon: 'form', permission: '/form/index' }
       }
     ]
   },
