@@ -1,26 +1,24 @@
 <template>
-    <section class="app-main">
-      <transition name="fade" mode="out-in">
-          <!-- <router-view :key="key"></router-view> -->
-          <router-view></router-view>
-      </transition>
-    </section>
+  <section class="app-main" style="min-height: 100%">
+    <transition name="fade-transform" mode="out-in">
+      <keep-alive :include="cachedViews">
+        <router-view :key="key"></router-view>
+      </keep-alive>
+    </transition>
+  </section>
 </template>
 
 <script>
 export default {
   name: 'AppMain',
   computed: {
-    // key() {
-    //   return this.$route.name !== undefined ? this.$route.name + +new Date() : this.$route + +new Date()
-    // }
-  },
-  props: {
-    height: {
-      type: Number,
-      default: 0
+    cachedViews() {
+      console.log(this.$store.state.tagsView.cachedViews)
+      return this.$store.state.tagsView.cachedViews.join(',')
+    },
+    key() {
+      return this.$route.fullPath
     }
   }
 }
 </script>
-

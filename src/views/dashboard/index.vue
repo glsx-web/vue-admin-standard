@@ -1,17 +1,17 @@
 <template>
   <div class="dashboard-container">
-     <MDinput name="name" v-model="title" required :maxlength="100">
-        标题
+     <MDinput name="name" v-model="title" required :maxlength="100" v-gl-if="title">
+        {{title}}
       </MDinput>
-    <div class="dashboard-text">name:{{name}}</div>
-    <div class="dashboard-text">roles:<span v-for='role in roles' :key='role'>{{role}}</span></div>
+      <el-button @click="click"></el-button>
+    <div class="dashboard-text">name:{{name}}{{title}}</div>
+    <div class="dashboard-text">roles:<span v-for='(role,$index) in roles' :key='$index'>{{role}}</span></div>
   </div>
 </template>
-
 <script>
 import { mapGetters } from 'vuex'
+import { login } from '@/api/user'
 import MDinput from '@/components/MDinput'
-
 export default {
   name: 'dashboard',
   components: {
@@ -19,7 +19,7 @@ export default {
   },
   data() {
     return {
-      title: ''
+      title: login.p[0]
     }
   },
   computed: {
@@ -27,6 +27,11 @@ export default {
       'name',
       'roles'
     ])
+  },
+  methods: {
+    click() {
+      this.$router.push({ path: '/example/tree', query: { id: 1 }})
+    }
   }
 }
 </script>

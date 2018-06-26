@@ -1,6 +1,14 @@
+/*
+ * @Author: limin
+ * @Date: 2018-06-25 10:29:14
+ * @Last Modified by:   limin
+ * @Last Modified time: 2018-06-25 10:29:14
+ */
 import { asyncRouterMap, constantRouterMap } from '@/router'
-const ADMIN = 'admin'
 
+import { setResources } from '@/utils/persist'
+
+import { ADMIN } from '@/utils/const'
 /**
  * 通过meta.role判断是否与当前用户权限匹配
  * @param routes
@@ -42,10 +50,11 @@ const permission = {
   actions: {
     GenerateRoutes({ commit }, data) {
       return new Promise(resolve => {
-        const { routes, roles } = data
+        const { routes, roles, resources } = data
+        setResources(resources)
         const routesSet = new Set(routes)
         const rolesSet = new Set(roles)
-        const accessedRouters = rolesSet.has(ADMIN) ? asyncRouterMap : filterAsyncRouter(asyncRouterMap, routesSet)
+        const accessedRouters = rolesSet.has(ADMIN.KEY) ? asyncRouterMap : filterAsyncRouter(asyncRouterMap, routesSet)
         commit('SET_ROUTERS', accessedRouters)
         resolve()
       })

@@ -1,7 +1,13 @@
+/*
+ * @Author: limin
+ * @Date: 2018-06-25 10:28:18
+ * @Last Modified by: limin
+ * @Last Modified time: 2018-06-26 14:57:25
+ */
 import axios from 'axios'
 import { Message, MessageBox } from 'element-ui'
-import store from '../store'
-import { getToken } from '@/utils/auth'
+import store from '@/store'
+import { getToken, ResInSession } from '@/utils/persist'
 
 // 创建axios实例
 const service = axios.create({
@@ -12,8 +18,36 @@ const service = axios.create({
 // request拦截器
 service.interceptors.request.use(config => {
   if (store.getters.token) {
-    config.headers['X-Token'] = getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
+    config.headers['X-Token'] = getToken() // 让每个请求携带自定义token
   }
+  console.log(ResInSession)
+  console.log(config.url)
+  //   // 得到请求路径
+  //   let perName = config.url.replace(config.baseURL, '').replace('/GET', '').replace('/POST', '').split('?')[0]
+  //   // 权限格式1 /path/${param}
+  //   const reg1 = perName.match(/^(\/[^\/]+\/)[^\/]+$/)
+  //   if (reg1) {
+  //     perName = reg1[1] + '**'
+  //   }
+  //   // 权限格式2 /path/${param}/path
+  //   const reg2 = perName.match(/^\/[^\/]+\/([^\/]+)\/[^\/]+$/)
+  //   if (reg2) {
+  //     perName = perName.replace(reg2[1], '*')
+  //   }
+  //   // 校验权限
+  //   if (!ResInSession[ perName]) {
+  //     // 调试信息
+  //     console.warn(ResInSession, config.method + ',' + perName)
+  //     Message({
+  //       message: '无访问权限，请联系企业管理员',
+  //       type: 'warning',
+  //       duration: 5 * 1000
+  //     })
+  //     // 拦截请求
+  //     return Promise.reject({
+  //       message: 'no permission'
+  //     })
+  //   }
   return config
 }, error => {
   // Do something with request error

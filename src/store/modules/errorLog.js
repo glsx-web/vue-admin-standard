@@ -1,3 +1,9 @@
+/*
+ * @Author: limin
+ * @Date: 2018-06-25 10:29:18
+ * @Last Modified by:   limin
+ * @Last Modified time: 2018-06-25 10:29:18
+ */
 const errorLog = {
   state: {
     logs: []

@@ -27,3 +27,7 @@
     }
   }
 }
+//解决el-dialog 打开时 body padding-right 17px问题
+.el-popup-parent--hidden{
+  padding-right: 0 !important;
+}

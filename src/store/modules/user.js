@@ -1,5 +1,11 @@
-import { login, logout, getInfo } from '@/api/login'
-import { getToken, setToken, removeToken } from '@/utils/auth'
+/*
+ * @Author: limin
+ * @Date: 2018-06-25 10:29:28
+ * @Last Modified by: limin
+ * @Last Modified time: 2018-06-25 12:37:46
+ */
+import { login, logout, getInfo } from '@/api/user'
+import { getToken, setToken, removeToken } from '@/utils/persist'
 
 const user = {
   state: {
@@ -28,11 +34,12 @@ const user = {
     // 登录
     Login({ commit }, userInfo) {
       const username = userInfo.username.trim()
+      const password = userInfo.password
       return new Promise((resolve, reject) => {
-        login(username, userInfo.password).then(response => {
-          const data = response.data
-          setToken(data.token)
-          commit('SET_TOKEN', data.token)
+        login.req({ username, password }).then(response => {
+          const { token } = response.data
+          setToken(token)
+          commit('SET_TOKEN', token)
           resolve()
         }).catch(error => {
           reject(error)
@@ -43,15 +50,15 @@ const user = {
     // 获取用户信息
     GetInfo({ commit, state }) {
       return new Promise((resolve, reject) => {
-        getInfo(state.token).then(response => {
-          const data = response.data
-          if (data.roles && data.roles.length > 0) { // 验证返回的roles是否是一个非空数组
-            commit('SET_ROLES', data.roles)
+        getInfo.req(state.token).then(response => {
+          const { roles, name, avatar } = response.data
+          if (roles && roles.length > 0) { // 验证返回的roles是否是一个非空数组
+            commit('SET_ROLES', roles)
           } else {
             reject('getInfo: roles must be a non-null array !')
           }
-          commit('SET_NAME', data.name)
-          commit('SET_AVATAR', data.avatar)
+          commit('SET_NAME', name)
+          commit('SET_AVATAR', avatar)
           resolve(response)
         }).catch(error => {
           reject(error)
@@ -62,7 +69,7 @@ const user = {
     // 登出
     LogOut({ commit, state }) {
       return new Promise((resolve, reject) => {
-        logout(state.token).then(() => {
+        logout.req(state.token).then(() => {
           commit('SET_TOKEN', '')
           commit('SET_ROLES', [])
           removeToken()

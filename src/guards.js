@@ -1,15 +1,23 @@
+/*
+ * @Author: limin
+ * @Date: 2018-06-25 10:30:50
+ * @Last Modified by: limin
+ * @Last Modified time: 2018-06-25 19:30:29
+ */
 import router from './router'
 import store from './store'
 import { Message } from 'element-ui'
 import NProgress from 'nprogress' // progress bar
 import 'nprogress/nprogress.css'// progress bar style
-import { getToken } from '@/utils/auth' // getToken from cookie
+import { getToken } from '@/utils/persist' // getToken from storeage
 
 NProgress.configure({ showSpinner: false })// NProgress Configuration
 
 const whiteList = ['/login']// no redirect whitelist
 
 router.beforeEach((to, from, next) => {
+  console.log(to)
+  // debugger
   NProgress.start() // start progress bar
   if (getToken()) { // determine if there has token
     /* has token*/
@@ -19,8 +27,8 @@ router.beforeEach((to, from, next) => {
     } else {
       if (store.getters.roles.length === 0) { // 判断当前用户是否已拉取完user_info信息
         store.dispatch('GetInfo').then(res => { // 拉取user_info
-          const { roles, routes } = res.data // note: roles must be a array! such as: ['editor','develop']
-          store.dispatch('GenerateRoutes', { roles, routes }).then(() => { // 根据roles权限生成可访问的路由表
+          const { roles, routes, resources } = res.data // note: roles must be a array! such as: ['editor','develop']
+          store.dispatch('GenerateRoutes', { roles, routes, resources }).then(() => { // 根据roles权限生成可访问的路由表
             router.addRoutes(store.getters.addRouters) // 动态添加可访问路由表
             next({ ...to, replace: true }) // hack方法 确保addRoutes已完成 ,set the replace: true so the navigation will not leave a history record
           })

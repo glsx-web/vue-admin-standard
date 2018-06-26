@@ -1,9 +1,15 @@
-import Cookies from 'js-cookie'
+/*
+ * @Author: limin
+ * @Date: 2018-06-25 10:29:04
+ * @Last Modified by: limin
+ * @Last Modified time: 2018-06-25 18:35:39
+ */
+import { getSidebarStatus, setSidebarClose, setSidebarOpen } from '@/utils/persist'
 
 const app = {
   state: {
     sidebar: {
-      opened: !+Cookies.get('sidebarStatus'),
+      opened: !!getSidebarStatus,
       withoutAnimation: false
     },
     device: 'desktop',
@@ -12,15 +18,15 @@ const app = {
   mutations: {
     TOGGLE_SIDEBAR: state => {
       if (state.sidebar.opened) {
-        Cookies.set('sidebarStatus', 1)
+        setSidebarClose()
       } else {
-        Cookies.set('sidebarStatus', 0)
+        setSidebarOpen()
       }
       state.sidebar.opened = !state.sidebar.opened
       state.sidebar.withoutAnimation = false
     },
     CLOSE_SIDEBAR: (state, withoutAnimation) => {
-      Cookies.set('sidebarStatus', 1)
+      setSidebarClose()
       state.sidebar.opened = false
       state.sidebar.withoutAnimation = withoutAnimation
     },

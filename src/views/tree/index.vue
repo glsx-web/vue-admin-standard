@@ -65,6 +65,9 @@ export default {
         label: 'label'
       }
     }
+  },
+  activated() {
+    console.log(this.$route.query.id)
   }
 }
 </script>

@@ -71,6 +71,7 @@ export default {
       return this.$store.state.app.clientHeight - this.logo.height
     },
     objAsideClass() {
+      console.log(this.sidebar.opened)
       return {
         hideSidebar: !this.sidebar.opened,
         withoutAnimation: this.sidebar.withoutAnimation,

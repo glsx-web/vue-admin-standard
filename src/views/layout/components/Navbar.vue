@@ -12,6 +12,7 @@
         <theme-picker class="theme-switch right-menu-item"></theme-picker>
       </el-tooltip> -->
       <NavUser :name="name" :avatar="avatar" :logout="logout" />
+      <!-- <span @click="handleLockScreen"><svg-icon icon-class="lock" class-name="lock" /></span> -->
     </div>
   </el-menu>
 </template>
@@ -25,6 +26,7 @@ import Screenfull from '@/components/Screenfull'
 import LangSelect from '@/components/LangSelect'
 import ThemePicker from '@/components/ThemePicker'
 import NavUser from '@/components/NavUser'
+// import glLock from '@/components/lock'
 
 export default {
   components: {
@@ -35,6 +37,7 @@ export default {
     LangSelect,
     ThemePicker,
     NavUser
+    // glLock
   },
   computed: {
     ...mapGetters([
@@ -52,6 +55,11 @@ export default {
         location.reload() // 为了重新实例化vue-router对象 避免bug
       })
     }
+    // handleLockScreen() { // 锁屏
+    //   // this.$store.commit('LOCK')
+    //   console.log(111)
+    //   this.$router.replace('/lockscreen')
+    // }
   }
 }
 </script>

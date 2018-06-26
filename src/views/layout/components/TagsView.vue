@@ -1,10 +1,10 @@
 <template>
   <div class="tags-view-container">
     <scroll-pane class='tags-view-wrapper' ref='scrollPane'>
-      <router-link ref='tag' class="tags-view-item" :class="isActive(tag)?'active':''" v-for="tag in visitedViews"
-        :to="tag.path" :key="tag.path" @contextmenu.prevent.native="openMenu(tag,$event)">
-        {{tag.title}}
-        <span v-show="tag.path !==dashboard.path" class='el-icon-close' @click.prevent.stop='closeSelectedTag(tag)'></span>
+      <router-link ref='tag' class="tags-view-item" :class="isActive(tag)?'active':''" v-for="tag in Array.from(visitedViews)"
+        :to="tag.fullPath" :key="tag.fullPath" @contextmenu.prevent.native="openMenu(tag,$event)">
+        {{(tag.title)}}
+        <span class='el-icon-close' @click.prevent.stop='closeSelectedTag(tag)'></span>
       </router-link>
     </scroll-pane>
     <ul class='contextmenu' v-show="menuVisible" :style="{left:left+'px',top:top+'px'}">
@@ -25,17 +25,12 @@ export default {
       menuVisible: false,
       top: 0,
       left: 0,
-      selectedTag: {},
-      dashboard: {
-        name: 'Dashboard',
-        path: '/dashboard',
-        title: 'Dashboard'
-      }
+      selectedTag: {}
     }
   },
   computed: {
     visitedViews() {
-      return this._.union([this.dashboard], this.$store.state.tagsView.visitedViews)
+      return this.$store.state.tagsView.visitedViews
     }
   },
   watch: {
@@ -56,7 +51,7 @@ export default {
       return this.$route.name ? this.$route : false
     },
     isActive(route) {
-      return route.path === this.$route.path || route.name === this.$route.name
+      return route.fullPath === this.$route.fullPath
     },
     addViewTags() {
       const route = this.generateRoute()
@@ -69,7 +64,7 @@ export default {
       const tags = this.$refs.tag
       this.$nextTick(() => {
         this._.forEach(tags, (tag) => {
-          if (tag.to === this.$route.path) {
+          if (tag.to === this.$route.fullPath) {
             this.$refs.scrollPane.moveToTarget(tag.$el)
             return false
           }
@@ -80,12 +75,12 @@ export default {
       this.$store.dispatch('delVisitedViews', view).then((views) => {
         if (this.isActive(view)) {
           const latestView = views.slice(-1)[0]
-          this.$router.push(latestView ? latestView.path : '/')
+          this.$router.push(latestView ? latestView.fullPath : '/')
         }
       })
     },
     closeOthersTags() {
-      this.$router.push(this.selectedTag.path)
+      this.$router.push(this.selectedTag.fullPath)
       this.$store.dispatch('delOthersViews', this.selectedTag).then(() => {
         this.moveToCurrentTag()
       })
@@ -96,7 +91,7 @@ export default {
       })
     },
     openMenu(tag, e) {
-      this.menuVisible = tag.path !== this.dashboard.path
+      this.menuVisible = true
       this.selectedTag = tag
       this.left = e.clientX
       this.top = e.clientY

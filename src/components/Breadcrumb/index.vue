@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import { DASHBOARD } from '@/utils/const'
 export default {
   created() {
     this.getBreadcrumb()
@@ -26,10 +27,10 @@ export default {
   },
   methods: {
     getBreadcrumb() {
-      let matched = this.$route.matched.filter(item => item.name)
-      const first = matched[0]
-      if (first && first.name !== 'dashboard') {
-        matched = [{ path: '/dashboard', meta: { title: 'Dashboard' }}].concat(matched)
+      var matched = this.$route.matched.filter(item => item.name)
+      const first = this._.head(matched)
+      if (first && first.name.toLowerCase() !== DASHBOARD.name.toLowerCase()) {
+        matched = [DASHBOARD].concat(matched)
       }
       this.levelList = matched
     }

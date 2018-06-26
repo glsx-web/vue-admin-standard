@@ -1,3 +1,9 @@
+/*
+ * @Author: limin
+ * @Date: 2018-06-25 10:30:32
+ * @Last Modified by:   limin
+ * @Last Modified time: 2018-06-25 10:30:32
+ */
 import store from '@/store'
 
 const { body } = document

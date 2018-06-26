@@ -1,3 +1,9 @@
+/*
+ * @Author: limin
+ * @Date: 2018-06-25 10:29:33
+ * @Last Modified by:   limin
+ * @Last Modified time: 2018-06-25 10:29:33
+ */
 const getters = {
   visitedViews: state => state.tagsView.visitedViews,
   cachedViews: state => state.tagsView.cachedViews,

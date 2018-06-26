@@ -1,6 +1,10 @@
+/*
+ * @Author: limin
+ * @Date: 2018-06-25 10:30:54
+ * @Last Modified by:   limin
+ * @Last Modified time: 2018-06-25 10:30:54
+ */
 import Vue from 'vue'
-import _ from '@/utils/util'
-Vue.use(_)
 Vue.config.productionTip = false
 import { i18n, App, router, store } from '@/base'
 new Vue({
