@@ -2,7 +2,7 @@
  * @Author: limin
  * @Date: 2018-06-25 10:30:50
  * @Last Modified by: limin
- * @Last Modified time: 2018-06-25 19:30:29
+ * @Last Modified time: 2018-06-27 14:39:34
  */
 import router from './router'
 import store from './store'
@@ -16,7 +16,6 @@ NProgress.configure({ showSpinner: false })// NProgress Configuration
 const whiteList = ['/login']// no redirect whitelist
 
 router.beforeEach((to, from, next) => {
-  console.log(to)
   // debugger
   NProgress.start() // start progress bar
   if (getToken()) { // determine if there has token

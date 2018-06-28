@@ -2,9 +2,9 @@
  * @Author: limin
  * @Date: 2018-06-25 10:29:04
  * @Last Modified by: limin
- * @Last Modified time: 2018-06-25 18:35:39
+ * @Last Modified time: 2018-06-28 21:16:56
  */
-import { getSidebarStatus, setSidebarClose, setSidebarOpen } from '@/utils/persist'
+import { setSidebarClose, setSidebarOpen, setTheme, getSidebarStatus } from '@/utils/persist'
 
 const app = {
   state: {
@@ -13,7 +13,8 @@ const app = {
       withoutAnimation: false
     },
     device: 'desktop',
-    clientHeight: document.body.clientHeight
+    clientHeight: document.body.clientHeight,
+    theme: ''
   },
   mutations: {
     TOGGLE_SIDEBAR: state => {
@@ -35,6 +36,9 @@ const app = {
     },
     SET_CLIENT_HEIGHT: (state, clientHeight) => {
       state.clientHeight = clientHeight
+    },
+    SET_THEME: (state, theme) => {
+      state.theme = theme
     }
   },
   actions: {
@@ -49,6 +53,10 @@ const app = {
     },
     SetClientHeight({ commit }, clientHeight) {
       commit('SET_CLIENT_HEIGHT', clientHeight)
+    },
+    SetTheme({ commit }, theme) {
+      setTheme(theme)
+      commit('SET_THEME', theme)
     }
   }
 }

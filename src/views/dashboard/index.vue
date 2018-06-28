@@ -1,9 +1,9 @@
 <template>
   <div class="dashboard-container">
-     <MDinput name="name" v-model="title" required :maxlength="100" v-gl-if="title">
-        {{title}}
+     <MDinput name="name" v-model="title" required :maxlength="100" >
+        标题
       </MDinput>
-      <el-button @click="click"></el-button>
+      <el-button @click="click" v-gl-if="p">跳转</el-button>
     <div class="dashboard-text">name:{{name}}{{title}}</div>
     <div class="dashboard-text">roles:<span v-for='(role,$index) in roles' :key='$index'>{{role}}</span></div>
   </div>
@@ -19,7 +19,8 @@ export default {
   },
   data() {
     return {
-      title: login.p[0]
+      title: '',
+      p: login.p
     }
   },
   computed: {
@@ -30,7 +31,7 @@ export default {
   },
   methods: {
     click() {
-      this.$router.push({ path: '/example/tree', query: { id: 1 }})
+      this.$router.push({ path: '/example/table', query: { id: 1 }})
     }
   }
 }

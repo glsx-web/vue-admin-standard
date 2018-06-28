@@ -1,7 +1,7 @@
 <template>
   <div class="tags-view-container">
     <scroll-pane class='tags-view-wrapper' ref='scrollPane'>
-      <router-link ref='tag' class="tags-view-item" :class="isActive(tag)?'active':''" v-for="tag in Array.from(visitedViews)"
+      <router-link ref='tag' class="tags-view-item" :class="isActive(tag)?'active':''" :style="isActive(tag)?objStyle:''" v-for="tag in Array.from(visitedViews)"
         :to="tag.fullPath" :key="tag.fullPath" @contextmenu.prevent.native="openMenu(tag,$event)">
         {{(tag.title)}}
         <span class='el-icon-close' @click.prevent.stop='closeSelectedTag(tag)'></span>
@@ -18,8 +18,15 @@
 <script>
 import ScrollPane from '@/components/ScrollPane'
 import { generateTitle } from '@/utils/i18n'
+const ORIGINAL_THEME = '#409EFF' // default color
 export default {
   components: { ScrollPane },
+  props: {
+    activeColor: {
+      type: String,
+      default: ORIGINAL_THEME
+    }
+  },
   data() {
     return {
       menuVisible: false,
@@ -31,6 +38,11 @@ export default {
   computed: {
     visitedViews() {
       return this.$store.state.tagsView.visitedViews
+    },
+    objStyle() {
+      return {
+        backgroundColor: this.activeColor
+      }
     }
   },
   watch: {
@@ -107,6 +119,8 @@ export default {
 @import "~@/styles/variables.scss";
 .tags-view-container {
   .tags-view-wrapper {
+    width: calc(100% + 3px);
+    margin-left: -1px;
     background: #fff;
     height: 34px;
     border-bottom: 1px solid #d8dce5;
@@ -127,9 +141,9 @@ export default {
         margin-left: 15px;
       }
       &.active {
-        background-color: $menuBg;
+        //background-color: $bg;
         color: #fff;
-        border-color:$menuBg;
+       // border-color:$bg;
         &::before {
           content: '';
           background: #fff;

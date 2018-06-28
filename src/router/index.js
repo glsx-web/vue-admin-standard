@@ -30,12 +30,11 @@ export const constantRouterMap = [
   {
     path: '',
     component: Layout,
-    redirect: '/dashboard',
     children: [{
-      path: 'dashboard',
+      path: 'index',
       component: () => import(`@/${views}/dashboard/index`),
       name: 'dashboard',
-      meta: { title: 'Dashboard', icon: 'form', cache: true, keepAlive: true }
+      meta: { title: 'Dashboard', icon: 'form', keepAlive: true }
     }]
   }
 ]
@@ -64,24 +63,21 @@ export const asyncRouterMap = [
         path: 'tree',
         name: 'Tree',
         component: () => import(`@/${views}/tree/index`),
-        meta: { title: 'Tree', icon: 'tree', permission: '/example/tree', keepAlive: true }
+        meta: { title: 'Tree', icon: 'tree', permission: '/example/tree', keepAlive: false }
       }
     ]
   },
-
   {
     path: '/form',
     component: Layout,
-    meta: { permission: '/form' },
     children: [
       {
         path: 'index',
-        name: 'Form',
+        name: 'gl-form',
         component: () => import(`@/${views}/form/index`),
         meta: { title: 'Form', icon: 'form', permission: '/form/index', keepAlive: true }
       }
     ]
   },
-
   { path: '*', redirect: '/404', hidden: true }
 ]

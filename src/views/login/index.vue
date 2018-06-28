@@ -1,5 +1,5 @@
 <template>
-  <div class="login-container">
+  <div class="login-container" :style="objContainerStyle">
     <el-form class="login-form" autoComplete="on" :model="loginForm" :rules="loginRules" ref="loginForm" label-position="left">
       <h3 class="title">vue-admin-standard</h3>
       <el-form-item prop="username">
@@ -31,6 +31,7 @@
 
 <script>
 import { isvalidUsername } from '@/utils/validate'
+import { getTheme } from '@/utils/persist'
 
 export default {
   name: 'login',
@@ -76,7 +77,7 @@ export default {
           this.loading = true
           this.$store.dispatch('Login', this.loginForm).then(() => {
             this.loading = false
-            this.$router.push({ path: '/' })
+            this.$router.push({ path: '/index' })
           }).catch(() => {
             this.loading = false
           })
@@ -85,6 +86,13 @@ export default {
           return false
         }
       })
+    }
+  },
+  computed: {
+    objContainerStyle() {
+      return {
+        backgroundColor: this.$store.state.app.theme || getTheme
+      }
     }
   }
 }
@@ -116,7 +124,7 @@ $light_gray:#eee;
   }
   .el-form-item {
     border: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 0.1);
     border-radius: 5px;
     color: #454545;
   }
@@ -126,14 +134,12 @@ $light_gray:#eee;
 
 <style rel="stylesheet/scss" lang="scss" scoped>
 @import "~@/styles/variables.scss";
-$bg:$menuBg;
 $dark_gray:#889aa4;
 $light_gray:#eee;
 .login-container {
   position: fixed;
   height: 100%;
   width: 100%;
-  background-color: $bg;
   .login-form {
     position: absolute;
     left: 0;

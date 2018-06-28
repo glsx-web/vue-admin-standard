@@ -2,7 +2,7 @@
  * @Author: limin
  * @Date: 2018-06-25 10:28:50
  * @Last Modified by: limin
- * @Last Modified time: 2018-06-25 10:56:47
+ * @Last Modified time: 2018-06-27 14:24:52
  */
 import request from '@/axios'
 
@@ -32,31 +32,6 @@ const logout = {
     return request.post(__sLogout)
   }
 }
-// export function login(username, password) {
-//   return request({
-//     url: '/user/login',
-//     method: 'post',
-//     data: {
-//       username,
-//       password
-//     }
-//   })
-// }
-
-// export function getInfo(token) {
-//   return request({
-//     url: '/user/info',
-//     method: 'get',
-//     params: { token }
-//   })
-// }
-
-// export function logout() {
-//   return request({
-//     url: '/user/logout',
-//     method: 'post'
-//   })
-// }
 export {
   login,
   getInfo,

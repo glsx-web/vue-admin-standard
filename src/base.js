@@ -2,7 +2,7 @@
  * @Author: limin
  * @Date: 2018-06-25 10:30:45
  * @Last Modified by: limin
- * @Last Modified time: 2018-06-25 10:58:20
+ * @Last Modified time: 2018-06-28 11:51:33
  */
 import Vue from 'vue'
 import ElementUI from 'element-ui'
@@ -18,6 +18,9 @@ import router from '@/router'
 import store from '@/store'
 import '@/directives'
 import EasyScroll from 'easyscroll'
+// import Theme from '@/components/ThemePicker'
+// Theme.theme = '#409EFF'
+
 Vue.use(EasyScroll)
 
 import _ from '@/prototypes'

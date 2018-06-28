@@ -2,7 +2,7 @@
  * @Author: limin
  * @Date: 2018-06-25 10:29:52
  * @Last Modified by: limin
- * @Last Modified time: 2018-06-25 18:52:17
+ * @Last Modified time: 2018-06-28 13:45:44
  */
 export const ADMIN = {
   KEY: 'admin'
@@ -25,6 +25,8 @@ export const RESOURCES = { KEY: 'rescources' }
 export const DASHBOARD = {
   name: 'Dashboard',
   path: '/dashboard',
-  title: 'Dashboard',
-  meta: { title: 'dashboard' }
+  meta: { title: 'Dashboard' }
+}
+export const THEME = {
+  KEY: 'theme'
 }

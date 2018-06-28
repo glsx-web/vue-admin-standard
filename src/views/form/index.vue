@@ -49,6 +49,7 @@
 
 <script>
 export default {
+  name: 'gl-form',
   data() {
     return {
       form: {

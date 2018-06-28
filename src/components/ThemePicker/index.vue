@@ -1,24 +1,41 @@
 <template>
-  <el-color-picker
+<div><el-color-picker
     class="theme-picker"
     popper-class="theme-picker-dropdown"
-    v-model="theme"></el-color-picker>
+    :predefine="predefineColors"
+    v-model="themeColor" size="mini"></el-color-picker>
+    </div>
 </template>
-
 <script>
-
-const version = require('element-ui/package.json').version // element-ui version from node_modules
+const version = '2.4.0'// require('element-ui/package.json').version // element-ui version from node_modules TODO: 目前最高版本2.4.0
 const ORIGINAL_THEME = '#409EFF' // default color
 
 export default {
+  props: {
+    theme: {
+      type: String,
+      default: ORIGINAL_THEME
+    },
+    predefineColors: {
+      type: Array
+    }
+  },
   data() {
     return {
       chalk: '', // content of theme-chalk css
-      theme: ORIGINAL_THEME
+      themeColor: this.theme
     }
   },
+
   watch: {
-    theme(val, oldVal) {
+    themeColor(val, oldVal) {
+      this.change(val, oldVal)
+      this.$emit('themeHandler', val)
+    }
+  },
+
+  methods: {
+    change(val, oldVal) {
       if (typeof val !== 'string') return
       const themeCluster = this.getThemeCluster(val.replace('#', ''))
       const originalCluster = this.getThemeCluster(oldVal.replace('#', ''))
@@ -38,15 +55,14 @@ export default {
       }
 
       const chalkHandler = getHandler('chalk', 'chalk-style')
-
       if (!this.chalk) {
-        const url = `https://unpkg.com/element-ui@${version}/lib/theme-chalk/index.css`
+        const url = `https://cdn.bootcss.com/element-ui/${version}/theme-chalk/index.css`
         this.getCSSString(url, chalkHandler, 'chalk')
       } else {
         chalkHandler()
       }
 
-      const styles = [].slice.call(document.querySelectorAll('style'))
+      const styles = [...document.querySelectorAll('style')]
         .filter(style => {
           const text = style.innerText
           return new RegExp(oldVal, 'i').test(text) && !/Chalk Variables/.test(text)
@@ -56,14 +72,7 @@ export default {
         if (typeof innerText !== 'string') return
         style.innerText = this.updateStyle(innerText, originalCluster, themeCluster)
       })
-      this.$message({
-        message: '换肤成功',
-        type: 'success'
-      })
-    }
-  },
-
-  methods: {
+    },
     updateStyle(style, oldCluster, newCluster) {
       let newStyle = style
       oldCluster.forEach((color, index) => {
@@ -120,7 +129,6 @@ export default {
 
         return `#${red}${green}${blue}`
       }
-
       const clusters = [theme]
       for (let i = 0; i <= 9; i++) {
         clusters.push(tintColor(theme, Number((i / 10).toFixed(2))))
@@ -128,6 +136,10 @@ export default {
       clusters.push(shadeColor(theme, 0.1))
       return clusters
     }
+  },
+  mounted() {
+    console.log(this.theme)
+    this.change(this.theme, ORIGINAL_THEME)
   }
 }
 </script>

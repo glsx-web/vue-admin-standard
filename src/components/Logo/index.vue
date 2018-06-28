@@ -26,7 +26,7 @@
         },
         backgroundColor: {
           type: String,
-          default: '#fff'
+          default: 'transparent'
         },
         backgroundImage: {
           type: String,
@@ -38,7 +38,7 @@
           logoStyle: {
             height: this.height + 'px',
             width: this.width + 'px',
-            backgroundColor: this.backgroundColor,
+            backgroundColor: 'transparent',
             backgroundImage: 'url("' + this.backgroundImage + '")',
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'center center'

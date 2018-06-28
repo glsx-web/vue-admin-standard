@@ -2,17 +2,25 @@
 
 .el-menu--vertical .el-menu--popup,
 .el-menu--vertical .el-menu--popup> a >li.el-menu-item {
-        background-color: $menuBg !important;
+        //background-color: transparent !important;
+        //mix-blend-mode: difference;
 }
 .el-menu--vertical .el-menu--popup> a >li.el-menu-item{
     &:hover{
-        background-color: $menuHover !important;
+        background-color: transparent !important;
+        -webkit-filter: brightness(110%); /* Chrome, Safari, Opera */
+        filter: brightness(110%);
     }
 }
 
 #app {
     .aside {
         transition: width $transitionTime;
+        //background-color: $bg !important;
+        transition: background-color  $transitionTime;
+    }
+    .el-header{
+        //background-color: $bg !important;
     }
     // 主体区域
     .main-container {
@@ -23,9 +31,12 @@
 
     .sidebar-container .menu-wrapper >a > li.el-menu-item,
     .sidebar-container .menu-wrapper >li.el-submenu > div.el-submenu__title{
-        background-color: $menuBg !important;
+       background-color: transparent !important;
+        color: $fontColor !important;
         &:hover{
-            background-color: $menuHover !important;
+            background-color: transparent !important;
+            -webkit-filter: brightness(110%); /* Chrome, Safari, Opera */
+            filter: brightness(110%);
         }
     }
     
@@ -62,7 +73,10 @@
             border: none;
             height: 100%;
             width: 100% !important;
-            background-color: $menuBg !important;
+            background-color: transparent !important;
+            .el-menu-item{
+                //mix-blend-mode: difference !important;
+            }
         }
     }
     .hideSidebar {
@@ -109,9 +123,13 @@
     .sidebar-container .nest-menu .el-submenu>.el-submenu__title,
     .sidebar-container .el-submenu .el-menu-item {
         min-width: $sidebarWidth !important;
-        background-color: $subMenuBg !important;
+        background-color: transparent !important;
+            -webkit-filter: brightness(110%); /* Chrome, Safari, Opera */
+            filter: brightness(110%);
         &:hover {
-            background-color: $menuHover !important;
+            background-color: transparent;
+            -webkit-filter: brightness(90%); /* Chrome, Safari, Opera */
+            filter: brightness(90%);
         }
     }
     .el-menu--collapse .el-menu .el-submenu {
