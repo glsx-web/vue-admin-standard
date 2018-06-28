@@ -4,7 +4,7 @@
       <div v-if="device==='mobile' && isSidebarOpend" class="drawer-bg" @click="handleClickOutside"></div>
       <Logo :width="logo.width" :height="logo.height" :backgroundColor="logo.backgroundColor" :backgroundImage="logo.backgroundImage"></Logo>
       <!-- <el-scrollbar class="sidebar-container" wrapClass="scrollbar-wrapper" :style="{ 'height': asideHeight + 'px'}"> -->
-        <EasyScrollbar class="sidebar-container">
+        <EasyScrollbar class="sidebar-container" :barOption="barOption">
           <div :style="{ 'height': asideHeight + 'px'}">
             <sidebar />
           </div>
@@ -24,7 +24,7 @@
       <tags-view :activeColor="theme.value" />
     </el-header>
     <el-main> 
-      <EasyScrollbar >
+      <EasyScrollbar :barOption="barOption">
         <div :style="{ 'height': mainHeight + 'px'}">
           <app-main  />
         </div>
@@ -54,6 +54,17 @@ export default {
         width: 180,
         backgroundColor: '', // 默认transparent
         backgroundImage: '../../static/logo.png'
+      },
+      barOption: {
+        barColor: '#959595', // 滚动条颜色
+        barWidth: 6, // 滚动条宽度
+        railColor: 'transparent', // 导轨颜色
+        barMarginRight: 0, // 垂直滚动条距离整个容器右侧距离单位（px）
+        barMaginBottom: 0, // 水平滚动条距离底部距离单位（px)
+        barOpacityMin: 0.1, // 滚动条非激活状态下的透明度
+        zIndex: '666', // 滚动条z-Index
+        autohidemode: true, // 自动隐藏模式
+        horizrailenabled: false // 是否显示水平滚动条
       }
     }
   },
@@ -98,7 +109,7 @@ export default {
       return {
         show: true,
         predefineColors: [
-          '#000000',
+          '#409EFF',
           '#FF0000',
           '#00FF00',
           '#0000FF',
@@ -107,9 +118,10 @@ export default {
           '#FF00FF',
           '#990033',
           '#CC9933',
-          '#660033'
+          '#660033',
+          '#000000'
         ],
-        value: this.$store.state.app.theme || getTheme
+        value: this.$store.state.app.theme || getTheme || '#409EFF'
       }
     },
     objAsideClass() {

@@ -1,5 +1,5 @@
 <template>
-    <h1 slot-scope="scope">
+    <h1 >
         <a :href="linkTo" :class="logoClass" :style="logoStyle">
         </a>
     </h1>
@@ -61,6 +61,7 @@
   }
   .logo{
     //background: $menuBg url('../../assets/logo.png') center center no-repeat ;
+    position: relative;
     background-size: 70% 70%;
     width: 100%;
     height: 100%;

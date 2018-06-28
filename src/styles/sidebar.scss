@@ -7,9 +7,7 @@
 }
 .el-menu--vertical .el-menu--popup> a >li.el-menu-item{
     &:hover{
-        background-color: transparent !important;
-        -webkit-filter: brightness(110%); /* Chrome, Safari, Opera */
-        filter: brightness(110%);
+        background-color:rgba($color: #000000, $alpha: 0.4) !important;
     }
 }
 
@@ -31,12 +29,10 @@
 
     .sidebar-container .menu-wrapper >a > li.el-menu-item,
     .sidebar-container .menu-wrapper >li.el-submenu > div.el-submenu__title{
-       background-color: transparent !important;
+        background-color:transparent !important;
         color: $fontColor !important;
         &:hover{
-            background-color: transparent !important;
-            -webkit-filter: brightness(110%); /* Chrome, Safari, Opera */
-            filter: brightness(110%);
+            background-color:rgba($color: #000000, $alpha: 0.1) !important;
         }
     }
     
@@ -123,13 +119,9 @@
     .sidebar-container .nest-menu .el-submenu>.el-submenu__title,
     .sidebar-container .el-submenu .el-menu-item {
         min-width: $sidebarWidth !important;
-        background-color: transparent !important;
-            -webkit-filter: brightness(110%); /* Chrome, Safari, Opera */
-            filter: brightness(110%);
+        background-color:rgba($color: #000, $alpha: 0.2) !important;
         &:hover {
-            background-color: transparent;
-            -webkit-filter: brightness(90%); /* Chrome, Safari, Opera */
-            filter: brightness(90%);
+            background-color:rgba($color: #000, $alpha: 0.3) !important;
         }
     }
     .el-menu--collapse .el-menu .el-submenu {

@@ -2,7 +2,7 @@
  * @Author: limin
  * @Date: 2018-06-25 10:28:18
  * @Last Modified by: limin
- * @Last Modified time: 2018-06-27 14:14:21
+ * @Last Modified time: 2018-06-28 22:06:31
  */
 import axios from 'axios'
 import { Message, MessageBox } from 'element-ui'
@@ -21,7 +21,7 @@ service.interceptors.request.use(config => {
     config.headers['X-Token'] = getToken() // 让每个请求携带自定义token
   }
   // 校验权限
-  if (!ResInSession.has(config.url)) {
+  if (!ResInSession.has(config.url) && config.url !== 'user/login' && config.url !== 'user/info') {
     // 拦截请求
     return Promise.reject({
       message: `${config.url} 无访问权限，请联管理员`
