@@ -1,11 +1,11 @@
 /*
  * @Author: limin
  * @Date: 2018-06-25 10:28:09
- * @Last Modified by:   limin
- * @Last Modified time: 2018-06-25 10:28:09
+ * @Last Modified by: limin
+ * @Last Modified time: 2018-06-29 16:08:42
  */
 import ___ from 'lodash'
-import { ResInSession } from '@/utils/persist'
+import { ResInSession } from '@/utils/cache'
 export default {
   install(Vue, options) {
     Vue.prototype._ = ___

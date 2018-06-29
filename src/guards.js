@@ -9,7 +9,7 @@ import store from './store'
 import { Message } from 'element-ui'
 import NProgress from 'nprogress' // progress bar
 import 'nprogress/nprogress.css'// progress bar style
-import { getToken } from '@/utils/persist' // getToken from storeage
+import { getToken } from '@/utils/cache' // getToken from storeage
 
 NProgress.configure({ showSpinner: false })// NProgress Configuration
 

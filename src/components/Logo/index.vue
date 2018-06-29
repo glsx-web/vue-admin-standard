@@ -17,8 +17,7 @@
           default: '/'
         },
         width: {
-          type: Number,
-          default: 180
+          type: Number
         },
         height: {
           type: Number,
@@ -56,8 +55,10 @@
 <style  rel="stylesheet/scss" lang="scss" scoped>
   h1{
     margin: 0;
-    border-bottom: 1px solid #414550;
-    border-right: 1px solid #414550;
+    border: 1px solid rgba(255,255,255,.3);
+    border-top: none;
+    border-left: none;
+    box-shadow: inset 0 0 1px #000;
   }
   .logo{
     //background: $menuBg url('../../assets/logo.png') center center no-repeat ;
@@ -68,25 +69,25 @@
     overflow: hidden;
     text-indent: -9999px;
     display: block;
+      &:after{
+      content: '';
+      position: absolute;
+      width: 50%;
+      height: 100%;
+      top: 0;
+      overflow: hidden;
+      z-index:9;
+      /*背景渐变*/
+      background: -moz-linear-gradient(left,rgba(255,255,255,0) 0,rgba(255,255,255,.3) 50%,rgba(255,255,255,0) 100%);
+      background: -webkit-gradient(linear,left top,right top,color-stop(0%,rgba(255,255,255,0)),color-stop(50%,rgba(255,255,255,.3)),color-stop(100%,rgba(255,255,255,0)));
+      background: -webkit-linear-gradient(left,rgba(255,255,255,0) 0,rgba(255,255,255,.3) 50%,rgba(255,255,255,0) 100%);
+      background: -o-linear-gradient(left,rgba(255,255,255,0) 0,rgba(255,255,255,.3)50%,rgba(255,255,255,0) 100%);
+      background: linear-gradient(left,rgba(255,255,255,0) 0,rgba(255,255,255,.3) 50%,rgba(255,255,255,0) 100%);
+      -webkit-transform: skewX(-25deg);/*倾斜*/
+      -moz-transform: skewX(-25deg);
+      transform: skewX(-25deg);
+      animation: lightflow 13s linear infinite;
   }
-  .logo:after{
-    content: '';
-    position: absolute;
-    width: 50%;
-    height: 100%;
-    top: 0;
-    overflow: hidden;
-    z-index:9;
-    /*背景渐变*/
-    background: -moz-linear-gradient(left,rgba(255,255,255,0) 0,rgba(255,255,255,.3) 50%,rgba(255,255,255,0) 100%);
-    background: -webkit-gradient(linear,left top,right top,color-stop(0%,rgba(255,255,255,0)),color-stop(50%,rgba(255,255,255,.3)),color-stop(100%,rgba(255,255,255,0)));
-    background: -webkit-linear-gradient(left,rgba(255,255,255,0) 0,rgba(255,255,255,.3) 50%,rgba(255,255,255,0) 100%);
-    background: -o-linear-gradient(left,rgba(255,255,255,0) 0,rgba(255,255,255,.3)50%,rgba(255,255,255,0) 100%);
-    background: linear-gradient(left,rgba(255,255,255,0) 0,rgba(255,255,255,.3) 50%,rgba(255,255,255,0) 100%);
-    -webkit-transform: skewX(-25deg);/*倾斜*/
-    -moz-transform: skewX(-25deg);
-    transform: skewX(-25deg);
-    animation: lightflow 13s linear infinite;
   }
 
   @keyframes lightflow {

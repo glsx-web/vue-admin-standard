@@ -11,10 +11,12 @@
 <script>
 export default {
   name: 'AppMain',
+  props: {
+    cachedViews: {
+      type: Array
+    }
+  },
   computed: {
-    cachedViews() {
-      return this.$store.state.tagsView.cachedViews
-    },
     key() {
       return this.$route.fullPath
     }

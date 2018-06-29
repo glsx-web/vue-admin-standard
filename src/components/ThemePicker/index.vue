@@ -30,7 +30,7 @@ export default {
   watch: {
     themeColor(val, oldVal) {
       this.change(val, oldVal)
-      this.$emit('themeHandler', val)
+      this.$emit('@themeHandler', val)
     }
   },
 
@@ -138,7 +138,6 @@ export default {
     }
   },
   mounted() {
-    console.log(this.theme)
     this.change(this.theme, ORIGINAL_THEME)
   }
 }

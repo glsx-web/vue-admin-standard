@@ -10,25 +10,31 @@
         text-color="#bfcbd9"
         active-text-color="#409EFF"
       >
-      <sidebar-item :routes="permission_routers"></sidebar-item>
+      <sidebar-item :routes="permission_routers" :generate="generate"></sidebar-item>
       </el-menu>
     </div>
   <!-- </el-scrollbar> -->
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import SidebarItem from './SidebarItem'
 
 export default {
   components: { SidebarItem },
+  props: {
+    permission_routers: {
+      type: Array
+    },
+    isSidebarOpend: {
+      type: Boolean
+    },
+    generate: {
+      type: Function
+    }
+  },
   computed: {
-    ...mapGetters([
-      'permission_routers',
-      'sidebar'
-    ]),
     isCollapse() {
-      return !this.sidebar.opened
+      return !this.isSidebarOpend
     }
   }
 }

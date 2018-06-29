@@ -1,18 +1,22 @@
 <template>
   <el-menu class="navbar" mode="horizontal">
     <hamburger class="hamburger-container" :toggleClick="handleToggle" :isActive="sidebarStatus"></hamburger>
+    <breadcrumb class="breadcrumb-container" :generate="generate"></breadcrumb>
     <div class="right-menu">
       <NavUser :name="name" :avatar="avatar" class="right-menu-item"/>
       <!-- <error-log class="errLog-container right-menu-item"></error-log> -->
-      <el-tooltip effect="dark" :content="$t('navbar.screenfull')" placement="bottom">
+      <el-tooltip effect="light" :content="language.content" placement="bottom" v-if="language.show">
+        <lang-select class="international right-menu-item" v-on:@setLanguage="handleSetLanguage" :language="language.value"></lang-select>
+      </el-tooltip> 
+      <el-tooltip effect="light" :content="screenfull.content" placement="bottom" v-if="screenfull.show">
         <screenfull class="screenfull right-menu-item"></screenfull>
       </el-tooltip>
-       <el-tooltip effect="dark" :content="$t('navbar.theme')" placement="bottom" v-if="theme.show">
-        <theme-picker v-on:themeHandler="handleTheme" :theme="theme.value" :predefineColors="theme.predefineColors" class="theme-switch right-menu-item"></theme-picker>
+       <el-tooltip effect="light" :content="theme.content" placement="bottom" v-if="theme.show">
+        <theme-picker v-on:@themeHandler="handleTheme" :theme="theme.value" :predefineColors="theme.predefineColors" class="theme-switch right-menu-item"></theme-picker>
       </el-tooltip> 
-      <logout @click.native="handleLogout" class="right-menu-item" />
-      <!-- <lang-select class="international right-menu-item"></lang-select> -->
-     
+       <el-tooltip effect="light" :content="logout.content" placement="bottom" v-if="logout.show">
+        <logout @click.native="handleLogout" class="right-menu-item" />
+      </el-tooltip> 
       <!-- <span @click="handleLockScreen"><svg-icon icon-class="lock" class-name="lock" /></span> -->
     </div>
   </el-menu>
@@ -31,10 +35,14 @@ import Logout from '@/components/Logout'
 
 export default {
   props: {
+    screenfull: Object,
     theme: Object,
     sidebarStatus: Boolean,
     avatar: Object,
-    name: Object
+    name: Object,
+    logout: Object,
+    language: Object,
+    generate: Function
   },
   components: {
     Breadcrumb,
@@ -49,13 +57,16 @@ export default {
   },
   methods: {
     handleToggle() {
-      this.$emit('toggleSideBar')
+      this.$emit('@toggleSideBar')
     },
     handleLogout() {
-      this.$emit('logout')
+      this.$emit('@logout')
     },
     handleTheme(theme) {
-      this.$emit('themeHandler', theme)
+      this.$emit('@themeHandler', theme)
+    },
+    handleSetLanguage(lang) {
+      this.$emit('@setLanguage', lang)
     }
     // handleLockScreen() { // 锁屏
     //   // this.$store.commit('LOCK')
@@ -97,8 +108,7 @@ export default {
       margin: 0 8px;
     }
     .screenfull {
-      height: 20px;
-      vertical-align: -15px;
+      vertical-align: inherit
     }
     .international{
       vertical-align: top;
@@ -129,12 +139,7 @@ export default {
 <style rel="stylesheet/scss" lang="scss">
   .right-menu {
       .el-color-picker__trigger{
-        // width: 30px !important;
-        // height: 30px !important;
-        background-color:#f2f2f2;
-      }
-      .el-color-picker{
-        width:20px !important;
+        background: linear-gradient(to bottom right, red , blue);
       }
     }
 </style>

@@ -2,7 +2,7 @@
  * @Author: limin
  * @Date: 2018-06-25 10:30:00
  * @Last Modified by: limin
- * @Last Modified time: 2018-06-28 20:42:36
+ * @Last Modified time: 2018-06-29 10:35:30
  */
 import { setSession, getSession, removeSession, Consts, set, get } from './index'
 /**
@@ -61,3 +61,11 @@ export function setTheme(theme) {
   return set(Consts.THEME.KEY, theme)
 }
 export const getTheme = get(Consts.THEME.KEY)
+
+/**
+ * Language
+ */
+export function setLanguage(lang) {
+  return set(Consts.LOCALE.KEY, lang)
+}
+export const getLanguage = get(Consts.LOCALE.KEY)

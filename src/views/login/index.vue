@@ -31,7 +31,7 @@
 
 <script>
 import { isvalidUsername } from '@/utils/validate'
-import { getTheme } from '@/utils/persist'
+import { getTheme } from '@/utils/cache'
 
 export default {
   name: 'login',

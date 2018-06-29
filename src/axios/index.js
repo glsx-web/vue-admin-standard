@@ -7,7 +7,7 @@
 import axios from 'axios'
 import { Message, MessageBox } from 'element-ui'
 import store from '@/store'
-import { getToken, ResInSession } from '@/utils/persist'
+import { getToken, ResInSession } from '@/utils/cache'
 
 // 创建axios实例
 const service = axios.create({

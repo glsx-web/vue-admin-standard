@@ -34,7 +34,7 @@ export const constantRouterMap = [
       path: 'index',
       component: () => import(`@/${views}/dashboard/index`),
       name: 'dashboard',
-      meta: { title: 'Dashboard', icon: 'form', keepAlive: true }
+      meta: { title: 'dashboard', icon: 'form', keepAlive: true }
     }]
   }
 ]
@@ -51,19 +51,19 @@ export const asyncRouterMap = [
     component: Layout,
     redirect: 'noredirect',
     name: 'example',
-    meta: { title: 'Example', icon: 'example', permission: '/example' },
+    meta: { title: 'example', icon: 'example', permission: '/example' },
     children: [
       {
         path: 'table',
         name: 'Table',
         component: () => import(`@/${views}/table/index`),
-        meta: { title: 'Table', icon: 'table', permission: '/example/table', keepAlive: false }
+        meta: { title: 'table', icon: 'table', permission: '/example/table', keepAlive: false }
       },
       {
         path: 'tree',
         name: 'Tree',
         component: () => import(`@/${views}/tree/index`),
-        meta: { title: 'Tree', icon: 'tree', permission: '/example/tree', keepAlive: false }
+        meta: { title: 'tree', icon: 'tree', permission: '/example/tree', keepAlive: false }
       }
     ]
   },
@@ -75,7 +75,7 @@ export const asyncRouterMap = [
         path: 'index',
         name: 'gl-form',
         component: () => import(`@/${views}/form/index`),
-        meta: { title: 'Form', icon: 'form', permission: '/form/index', keepAlive: true }
+        meta: { title: 'form', icon: 'form', permission: '/form/index', keepAlive: true }
       }
     ]
   },

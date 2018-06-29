@@ -2,7 +2,7 @@
  * @Author: limin
  * @Date: 2018-06-25 10:30:45
  * @Last Modified by: limin
- * @Last Modified time: 2018-06-28 11:51:33
+ * @Last Modified time: 2018-06-29 20:31:03
  */
 import Vue from 'vue'
 import ElementUI from 'element-ui'
@@ -17,12 +17,17 @@ import App from '@/App'
 import router from '@/router'
 import store from '@/store'
 import '@/directives'
-import EasyScroll from 'easyscroll'
-// import Theme from '@/components/ThemePicker'
-// Theme.theme = '#409EFF'
+import * as filters from './filters' // global filters
 
-Vue.use(EasyScroll)
+Vue.use(ElementUI, {
+  size: 'medium', // set element-ui default size
+  i18n: (key, value) => i18n.t(key, value)
+})
 
+// register global utility filters.
+Object.keys(filters).forEach(key => {
+  Vue.filter(key, filters[key])
+})
 import _ from '@/prototypes'
 Vue.use(_)
 

@@ -3,7 +3,7 @@
     <scroll-pane class='tags-view-wrapper' ref='scrollPane'>
       <router-link ref='tag' class="tags-view-item" :class="isActive(tag)?'active':''" :style="isActive(tag)?objStyle:''" v-for="tag in Array.from(visitedViews)"
         :to="tag.fullPath" :key="tag.fullPath" @contextmenu.prevent.native="openMenu(tag,$event)">
-        {{(tag.title)}}
+        {{generate(tag.title)}}
         <span class='el-icon-close' @click.prevent.stop='closeSelectedTag(tag)'></span>
       </router-link>
     </scroll-pane>
@@ -17,7 +17,6 @@
 
 <script>
 import ScrollPane from '@/components/ScrollPane'
-import { generateTitle } from '@/utils/i18n'
 const ORIGINAL_THEME = '#409EFF' // default color
 export default {
   components: { ScrollPane },
@@ -25,7 +24,8 @@ export default {
     activeColor: {
       type: String,
       default: ORIGINAL_THEME
-    }
+    }, generate: Function,
+    visitedViews: Array
   },
   data() {
     return {
@@ -36,9 +36,6 @@ export default {
     }
   },
   computed: {
-    visitedViews() {
-      return this.$store.state.tagsView.visitedViews
-    },
     objStyle() {
       return {
         backgroundColor: this.activeColor
@@ -58,7 +55,6 @@ export default {
     this.addViewTags()
   },
   methods: {
-    generateTitle, // generateTitle by vue-i18n
     generateRoute() {
       return this.$route.name ? this.$route : false
     },
@@ -70,7 +66,8 @@ export default {
       if (!route) {
         return false
       }
-      this.$store.dispatch('addVisitedViews', route)
+      this.$emit('@addViewTag', route)
+      // this.$store.dispatch('addVisitedViews', route)
     },
     moveToCurrentTag() {
       const tags = this.$refs.tag
@@ -84,23 +81,27 @@ export default {
       })
     },
     closeSelectedTag(view) {
-      this.$store.dispatch('delVisitedViews', view).then((views) => {
-        if (this.isActive(view)) {
-          const latestView = views.slice(-1)[0]
-          this.$router.push(latestView ? latestView.fullPath : '/')
-        }
-      })
+      // this.$store.dispatch('delVisitedViews', view).then((views) => {
+      //   if (this.isActive(view)) {
+      //     const latestView = views.slice(-1)[0]
+      //     this.$router.push(latestView ? latestView.fullPath : '/')
+      //   }
+      // })
+      this.$emit('@closeSeletedTag', view, this.isActive(view))
     },
     closeOthersTags() {
-      this.$router.push(this.selectedTag.fullPath)
-      this.$store.dispatch('delOthersViews', this.selectedTag).then(() => {
-        this.moveToCurrentTag()
-      })
+      // this.$router.push(this.selectedTag.fullPath)
+      // this.$store.dispatch('delOthersViews', this.selectedTag).then(() => {
+      //   this.moveToCurrentTag()
+      // })
+      this.$emit('@closeOthersTags', this.selectedTag)
+      this.moveToCurrentTag()
     },
     closeAllTags() {
-      this.$store.dispatch('delAllViews').then(() => {
-        this.$router.push('/')
-      })
+      // this.$store.dispatch('delAllViews').then(() => {
+      //   this.$router.push('/')
+      // })
+      this.$emit('@closeAllTags')
     },
     openMenu(tag, e) {
       this.menuVisible = true

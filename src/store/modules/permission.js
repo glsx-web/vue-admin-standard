@@ -6,7 +6,7 @@
  */
 import { asyncRouterMap, constantRouterMap } from '@/router'
 
-import { setResources } from '@/utils/persist'
+import { setResources } from '@/utils/cache'
 
 import { ADMIN } from '@/utils/const'
 /**

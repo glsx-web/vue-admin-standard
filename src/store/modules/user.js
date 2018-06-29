@@ -5,7 +5,7 @@
  * @Last Modified time: 2018-06-25 12:37:46
  */
 import { login, logout, getInfo } from '@/api/user'
-import { getToken, setToken, removeToken } from '@/utils/persist'
+import { getToken, setToken, removeToken } from '@/utils/cache'
 
 const user = {
   state: {

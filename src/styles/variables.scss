@@ -1,17 +1,8 @@
 //sidebar
 $--color-primary: #409EFF;
-// $bg:$--color-primary; //全站主色调
-$subMenuBg:#263238; //子菜单背景颜色
-$menuHover:#141c20; //导航hover
-$sidebarWidth:180px; //侧边栏宽度
-$logoHeight:50px; //logo 高度
-$fontColor:#fff; //nav 文字颜色
-$breadLinkColor:#fff;//面包屑链接
+$fontColor:rgb(191, 203, 217); //nav 文字颜色
 $breadLinkHover:#1e1edb;//面包屑链接hover
-/* 改变主题色变量 */
-
-/* 改变 icon 字体路径变量，必需 */
-// $--font-path: '~element-ui/lib/theme-chalk/fonts';
-// @import "~element-ui/packages/theme-chalk/src/index";
+$--background-color--a1:rgba($color: #fff, $alpha: 0.1) !important;
+$--background-color--a2:rgba($color: #fff, $alpha: 0.2) !important;
 
 $transitionTime: .28s

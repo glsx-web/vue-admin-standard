@@ -8,6 +8,7 @@ const getters = {
   visitedViews: state => state.tagsView.visitedViews,
   cachedViews: state => state.tagsView.cachedViews,
   errorLogs: state => state.errorLog.logs,
+  language: state => state.app.language,
   sidebar: state => state.app.sidebar,
   device: state => state.app.device,
   clientHeight: state => state.app.clientHeight,

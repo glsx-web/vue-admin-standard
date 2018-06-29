@@ -4,27 +4,29 @@
       <svg-icon class-name='international-icon' icon-class="language" />
     </div>
     <el-dropdown-menu slot="dropdown">
-      <el-dropdown-item command="zh" :disabled="language==='zh'">中文</el-dropdown-item>
-      <el-dropdown-item command="en" :disabled="language==='en'">English</el-dropdown-item>
+      <el-dropdown-item command="zh" :disabled="lang==='zh'">中文</el-dropdown-item>
+      <el-dropdown-item command="en" :disabled="lang==='en'">English</el-dropdown-item>
     </el-dropdown-menu>
   </el-dropdown>
 </template>
 
 <script>
 export default {
-  computed: {
-    language() {
-      return this.$store.getters.language
+  props: {
+    language: {
+      type: String,
+      default: 'zh'
     }
   },
   methods: {
     handleSetLanguage(lang) {
-      this.$i18n.locale = lang
-      this.$store.dispatch('setLanguage', lang)
-      this.$message({
-        message: 'switch language success',
-        type: 'success'
-      })
+      this.lang = lang
+      this.$emit('@setLanguage', lang)
+    }
+  },
+  data() {
+    return {
+      lang: this.language
     }
   }
 }
@@ -32,9 +34,12 @@ export default {
 
 <style scoped>
 .international-icon {
-  font-size: 20px;
-  cursor: pointer;
-  vertical-align: -5px!important;
+  display: inline-block;
+	cursor: pointer;
+	width: 20px;
+	height: 20px;
+  fill: #fff;
+  vertical-align: -6px!important;
 }
 </style>
 

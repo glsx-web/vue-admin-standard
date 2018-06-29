@@ -2,9 +2,9 @@
  * @Author: limin
  * @Date: 2018-06-25 10:29:04
  * @Last Modified by: limin
- * @Last Modified time: 2018-06-28 21:16:56
+ * @Last Modified time: 2018-06-29 10:31:19
  */
-import { setSidebarClose, setSidebarOpen, setTheme, getSidebarStatus } from '@/utils/persist'
+import { setSidebarClose, setSidebarOpen, setTheme, getSidebarStatus, setLanguage } from '@/utils/cache'
 
 const app = {
   state: {
@@ -38,7 +38,12 @@ const app = {
       state.clientHeight = clientHeight
     },
     SET_THEME: (state, theme) => {
+      setTheme(theme)
       state.theme = theme
+    },
+    SET_LANGUAGE: (state, lang) => {
+      setLanguage(lang)
+      state.language = lang
     }
   },
   actions: {
@@ -55,8 +60,10 @@ const app = {
       commit('SET_CLIENT_HEIGHT', clientHeight)
     },
     SetTheme({ commit }, theme) {
-      setTheme(theme)
       commit('SET_THEME', theme)
+    },
+    SetLanguage({ commit }, lang) {
+      commit('SET_LANGUAGE', lang)
     }
   }
 }
