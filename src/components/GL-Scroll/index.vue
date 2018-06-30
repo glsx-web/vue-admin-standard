@@ -8,7 +8,7 @@
 <script>
 import EasyScroll from 'easyscroll'
 export default {
-  name: 'gl-scroll',
+  name: 'GlScroll',
   components: {
     EasyScroll
   },
