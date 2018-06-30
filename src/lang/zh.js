@@ -18,7 +18,8 @@ export default {
     dashboard: '首页',
     screenfull: '全屏',
     theme: '换肤',
-    language: '本地化'
+    language: '本地化',
+    settings: '偏好设置'
   },
   login: {
     title: '系统登录',

@@ -1,14 +1,14 @@
 <template>
-    <!-- <el-scrollbar wrapClass="scrollbar-wrapper"> -->
+    <!-- <el-scrollbar wrapClass="scrollbar-wrapper"> background-color="#304156" -->
     <div>
       <el-menu
         mode="vertical"
         :show-timeout="200"
         :default-active="$route.path"
         :collapse="isCollapse"
-        background-color="#304156"
-        text-color="#bfcbd9"
-        active-text-color="#409EFF"
+        :text-color="oColors.textColor"
+        :background-color="oColors.backgroundColor"
+        :active-text-color="oColors.activeTextColor"
       >
       <sidebar-item :routes="permission_routers" :generate="generate"></sidebar-item>
       </el-menu>
@@ -30,11 +30,26 @@ export default {
     },
     generate: {
       type: Function
+    },
+    colors: {
+      type: Object
+    }
+  },
+  data() {
+    return {
+      color: {
+        textColor: '#fff',
+        activeTextColor: '#ffd04b',
+        backgroundColor: '#304156'
+      }
     }
   },
   computed: {
     isCollapse() {
       return !this.isSidebarOpend
+    },
+    oColors() {
+      return Object.assign(this.colors, this.color)
     }
   }
 }

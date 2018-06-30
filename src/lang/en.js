@@ -21,7 +21,8 @@ export default {
     dashboard: 'Dashboard',
     screenfull: 'screenfull',
     theme: 'theme',
-    language: 'locale'
+    language: 'locale',
+    settings: 'Sttings'
   },
   login: {
     title: 'Login Form',

@@ -2,7 +2,7 @@
  * @Author: limin
  * @Date: 2018-06-25 10:28:04
  * @Last Modified by: limin
- * @Last Modified time: 2018-06-30 01:28:37
+ * @Last Modified time: 2018-06-30 16:57:31
  */
 import Vue from 'vue'
 
@@ -29,6 +29,7 @@ Vue.directive('drag', // 自定义指令
         // oDiv.style.left = l + 'px'
         // oDiv.style.top = t + 'px'
         // 将此时的位置传出去
+        document.body.style.cursor = 'e-resize'
         binding.value({ x: e.pageX, y: e.pageY, left: l })
         e.preventDefault()
         return false
@@ -36,6 +37,7 @@ Vue.directive('drag', // 自定义指令
       document.onmouseup = function(e) {
         document.onmousemove = null
         document.onmouseup = null
+        document.body.style.cursor = 'default'
       }
     }
   }

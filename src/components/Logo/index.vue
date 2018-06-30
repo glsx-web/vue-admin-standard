@@ -55,10 +55,10 @@
 <style  rel="stylesheet/scss" lang="scss" scoped>
   h1{
     margin: 0;
-    border: 1px solid rgba(255,255,255,.3);
+    border-right: 1px solid rgba(255,255,255,.3);
     border-top: none;
     border-left: none;
-    box-shadow: inset 0 0 1px #000;
+   // box-shadow: inset 0 0 1px #000;
   }
   .logo{
     //background: $menuBg url('../../assets/logo.png') center center no-repeat ;

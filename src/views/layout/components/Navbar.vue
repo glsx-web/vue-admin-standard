@@ -1,6 +1,6 @@
 <template>
   <el-menu class="navbar" mode="horizontal">
-    <hamburger class="hamburger-container" :toggleClick="handleToggle" :isActive="sidebarStatus"></hamburger>
+    <hamburger class="hamburger-container" :toggleClick="handleToggle" :isActive="isActive"></hamburger>
     <breadcrumb class="breadcrumb-container" :generate="generate"></breadcrumb>
     <div class="right-menu">
       <NavUser :name="name" :avatar="avatar" class="right-menu-item"/>
@@ -14,9 +14,13 @@
        <el-tooltip effect="light" :content="theme.content" placement="bottom" v-if="theme.show">
         <theme-picker v-on:@themeHandler="handleTheme" :theme="theme.value" :predefineColors="theme.predefineColors" class="theme-switch right-menu-item"></theme-picker>
       </el-tooltip> 
+      <el-tooltip effect="light" :content="settings.content" placement="bottom" v-if="settings.show">
+        <settings  class="right-menu-item" />
+      </el-tooltip> 
        <el-tooltip effect="light" :content="logout.content" placement="bottom" v-if="logout.show">
         <logout @click.native="handleLogout" class="right-menu-item" />
-      </el-tooltip> 
+      </el-tooltip>
+       
       <!-- <span @click="handleLockScreen"><svg-icon icon-class="lock" class-name="lock" /></span> -->
     </div>
   </el-menu>
@@ -31,17 +35,19 @@ import LangSelect from '@/components/LangSelect'
 import ThemePicker from '@/components/ThemePicker'
 import NavUser from '@/components/NavUser'
 import Logout from '@/components/Logout'
+import Settings from '@/components/Settings'
 // import glLock from '@/components/lock'
 
 export default {
   props: {
     screenfull: Object,
     theme: Object,
-    sidebarStatus: Boolean,
+    isActive: Boolean,
     avatar: Object,
     name: Object,
     logout: Object,
     language: Object,
+    settings: Object,
     generate: Function
   },
   components: {
@@ -52,7 +58,8 @@ export default {
     LangSelect,
     ThemePicker,
     NavUser,
-    Logout
+    Logout,
+    Settings
     // glLock
   },
   methods: {
