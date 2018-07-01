@@ -1,115 +1,101 @@
 <template>
-    <div :style="header.style"> 
+    <div :style="oStyle"> 
       <navbar 
         v-on:@themeHandler="handleTheme" 
         v-on:@logout="handleLogout"
         v-on:@toggleSideBar="handleToggle"
         v-on:@setLanguage="handleSetLanguage"
-        :theme="header.navbar.theme" 
-        :avatar="header.navbar.user.avatar" 
-        :name="header.navbar.user.name"
-        :language="header.navbar.language"
-        :screenfull="header.navbar.screenfull"
-        :logout="header.navbar.logout"
-        :settings="header.navbar.settings"
-        :generate="header.navbar.generate"
+        :theme="oNavbar.theme" 
+        :avatar="oNavbar.user.avatar" 
+        :name="oNavbar.user.name"
+        :language="oNavbar.language"
+        :screenfull="oNavbar.screenfull"
+        :logout="oNavbar.logout"
+        :settings="oNavbar.settings"
+        :generate="oNavbar.generate"
         :isActive="isSidebarOpend"/>
       <tags-view 
         v-on:@addViewTag="handleAddViewTag"
         v-on:@closeSeletedTag="handleCloseTag"
         v-on:@closeOthersTags="handleCloseOthersTags"
         v-on:@closeAllTags="handleCloseAllTags"
-        :activeColor="header.tagsView.activeColor" 
-        :generate="header.tagsView.generate" 
-        :visitedViews="header.tagsView.visitedViews"/>
+        :activeColor="oTagsView.activeColor" 
+        :generate="oTagsView.generate" 
+        :visitedViews="oTagsView.visitedViews"/>
     </div>
 </template>
 
 <script>
  import { mapGetters, mapActions } from 'vuex'
-import { getTheme } from '@/utils/cache'
-import { generateTitle } from '@/utils/i18n'
+import pub from '../mixins/public'
 import Navbar from './Navbar'
 import TagsView from './TagsView'
-/**
- * 默认颜色
- */
-const ORIGINAL_THEME = '#409EFF' // default color
 export default {
    name: 'GLAppHeader',
+   mixins: [pub],
    components: {
      Navbar,
      TagsView
    },
    computed: {
      ...mapGetters([
-       'sidebar',
-       'device',
-       'clientHeight',
        'avatar',
        'name',
        'language',
-       'theme',
        'visitedViews'
      ]),
-
-     themeColor() {
-       return this.theme || getTheme || ORIGINAL_THEME
-     },
-     isSidebarOpend() {
-       return this.sidebar.opened
-     },
-     header() {
+     oStyle() {
        return {
-         style: {
-           backgroundColor: this.themeColor
+         backgroundColor: this.themeColor
+       }
+     },
+     oNavbar() {
+       return {
+         user: {
+           avatar: {
+             show: false,
+             value: this.avatar
+           },
+           name: {
+             show: true,
+             value: this.name
+           }
          },
-         navbar: {
-           user: {
-             avatar: {
-               show: false,
-               value: this.avatar
-             },
-             name: {
-               show: true,
-               value: this.name
-             }
-           },
-           screenfull: {
-             show: true,
-             content: this.$t('navbar.screenfull')
-           },
-           logout: {
-             show: true,
-             content: this.$t('navbar.logOut')
-           },
-           language: {
-             show: true,
-             content: this.$t('navbar.language'),
-             value: this.language
-           },
-           settings: {
-             show: true,
-             content: this.$t('navbar.settings'),
-             value: this.sttings
-           },
-           theme: {
-             show: true,
-             content: this.$t('navbar.theme'),
-             predefineColors: [
-               '#409EFF',
-               '#FF0000'
-             ],
-             value: this.themeColor
-           },
-           generate: generateTitle
-
+         screenfull: {
+           show: true,
+           content: this.$t('navbar.screenfull')
          },
-         tagsView: {
-           activeColor: this.themeColor,
-           visitedViews: this.visitedViews,
-           generate: generateTitle
-         }
+         logout: {
+           show: true,
+           content: this.$t('navbar.logOut')
+         },
+         language: {
+           show: true,
+           content: this.$t('navbar.language'),
+           value: this.language
+         },
+         settings: {
+           show: true,
+           content: this.$t('navbar.settings'),
+           value: this.sttings
+         },
+         theme: {
+           show: true,
+           content: this.$t('navbar.theme'),
+           predefineColors: [
+             '#409EFF',
+             '#FF0000'
+           ],
+           value: this.themeColor
+         },
+         generate: this.generateTitle
+       }
+     },
+     oTagsView() {
+       return {
+         activeColor: this.themeColor,
+         visitedViews: this.visitedViews,
+         generate: this.generateTitle
        }
      }
    },

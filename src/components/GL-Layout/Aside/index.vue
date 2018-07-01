@@ -2,49 +2,39 @@
  * @Author: limin
  * @Date: 2018-07-01 01:36:03
  * @Last Modified by: limin
- * @Last Modified time: 2018-07-01 05:36:50
+ * @Last Modified time: 2018-07-01 17:56:30
  */
 <template>
-  <div  class="aside" :class="aside.class" :style="aside.style">
-      <Logo 
-        :width="aside.logo.width" 
-        :height="aside.logo.height" 
-        :backgroundColor="aside.logo.backgroundColor" 
-        :backgroundImage="aside.logo.backgroundImage" />
-        <gl-scroll  :height="aside.height" className="sidebar-container">
-          <sidebar 
-            :isSidebarOpend="aside.sidebar.opened" 
-            :permission_routers="aside.sidebar.permission_routers" 
-            :generate="aside.sidebar.generate"
-            :colors="aside.sidebar.colors" />
+  <div  class="aside" :class="oClass" :style="oStyle" v-if="Aside.show">
+      <gl-logo v-if="Logo.show"
+        :width="oLogo.width" 
+        :height="oLogo.height" 
+        :backgroundColor="oLogo.backgroundColor" 
+        :backgroundImage="oLogo.backgroundImage" />
+        <gl-scroll  :height="nHeight" className="sidebar-container" v-if="Sidebar.show">
+          <gl-sidebar 
+            :isSidebarOpend="oSidebar.opened" 
+            :permission_routers="oSidebar.permission_routers" 
+            :generate="oSidebar.generate"
+            :colors="oSidebar.colors" />
         </gl-scroll>
         <i class="dragger" v-drag="greet"></i>
   </div>
 </template>
 <script>
 import { mapGetters } from 'vuex'
-import { getTheme } from '@/utils/cache'
-import { generateTitle } from '@/utils/i18n'
-import Sidebar from './Sidebar'
-import Logo from '@/components/Logo'
-import glScroll from '@/components/GL-Scroll'
-/**
- * 默认颜色
- */
-const ORIGINAL_THEME = '#409EFF' // default color
+import GlSidebar from './Sidebar'
+import GlLogo from '@/components/Logo'
+import GlScroll from '@/components/GL-Scroll'
+import pubMixin from '../mixins/public'
+
 export default {
   name: 'GLAppAside',
+  mixins: [pubMixin],
   components: {
-    Sidebar,
-    Logo,
-    glScroll
-  },
-  data() {
-    return {
-      SIDEBAR_WIDTH_MAX: 200,
-      SIDEBAR_WIDTH_MIN: 36,
-      LOGO_HEIGHT: 100
-    }
+    GlSidebar,
+    GlLogo,
+    GlScroll
   },
   computed: {
     ...mapGetters([
@@ -52,45 +42,50 @@ export default {
       'device',
       'avatar',
       'name',
-      'theme',
       'permission_routers',
       'clientHeight'
     ]),
-    themeColor() {
-      return this.theme || getTheme || ORIGINAL_THEME
+    Sidebar() {
+      return this.Aside.Sidebar
     },
-    isSidebarOpend() {
-      return this.sidebar.opened
+    Logo() {
+      return this.Aside.Logo
     },
-    aside() {
+    oSidebar() {
       return {
-        height: this.clientHeight - this.LOGO_HEIGHT,
-        class: {
-          hideSidebar: !this.isSidebarOpend,
-          withoutAnimation: false, // this.sidebar.withoutAnimation,
-          minsize: this.device === 'minsize'
-        },
-        style: {
-          width: ((!this.isSidebarOpend && this.device === 'minsize') ? 0 : (this.isSidebarOpend ? this.SIDEBAR_WIDTH_MAX : this.SIDEBAR_WIDTH_MIN)) + 'px',
-          backgroundColor: this.themeColor,
-          height: '100%'
-        },
-        logo: {
-          // width: '',
-          height: this.LOGO_HEIGHT,
-          backgroundColor: '', // 默认transparent
-          backgroundImage: '../../static/logo.png'
-        },
-        sidebar: {
-          opened: this.isSidebarOpend,
-          permission_routers: this.permission_routers,
-          generate: generateTitle,
-          colors: {
-            textColor: '#fff',
-            activeTextColor: '#ffd04b',
-            backgroundColor: '#304156'
-          }
+        opened: this.isSidebarOpend,
+        permission_routers: this.permission_routers,
+        generate: this.generateTitle,
+        colors: {
+          textColor: this.Sidebar.text_color,
+          activeTextColor: this.Sidebar.active_text_color,
+          backgroundColor: this.Sidebar.background_color
         }
+      }
+    },
+    nHeight() {
+      return this.clientHeight - this.Logo.height
+    },
+    oClass() {
+      return {
+        hideSidebar: !this.isSidebarOpend,
+        withoutAnimation: false, // this.sidebar.withoutAnimation,
+        minsize: this.device === 'minsize'
+      }
+    },
+    oStyle() {
+      return {
+        width: ((!this.isSidebarOpend && this.device === 'minsize') ? 0 : (this.isSidebarOpend ? this.Sidebar.width_max : this.Sidebar.width_min)) + 'px',
+        backgroundColor: this.themeColor,
+        height: '100%'
+      }
+    },
+    oLogo() {
+      return {
+        // width: '',
+        height: this.Logo.height,
+        backgroundColor: this.Logo.backgroundColor,
+        backgroundImage: this.Logo.image
       }
     }
   },
@@ -101,7 +96,7 @@ export default {
         this.handleClickOutside()
       }
       obj.left = Math.min(obj.left, 300)
-      this.SIDEBAR_WIDTH_MAX = obj.left
+      this.Sidebar.width_max = obj.left
     }
   }
 }

@@ -1,5 +1,4 @@
 <template>
-    <!-- <el-scrollbar wrapClass="scrollbar-wrapper"> background-color="#304156" -->
     <div>
       <el-menu
         mode="vertical"
@@ -13,7 +12,6 @@
       <sidebar-item :routes="permission_routers" :generate="generate"></sidebar-item>
       </el-menu>
     </div>
-  <!-- </el-scrollbar> -->
 </template>
 
 <script>
@@ -49,7 +47,7 @@ export default {
       return !this.isSidebarOpend
     },
     oColors() {
-      return Object.assign(this.colors, this.color)
+      return Object.assign(this.color, this.colors)
     }
   }
 }

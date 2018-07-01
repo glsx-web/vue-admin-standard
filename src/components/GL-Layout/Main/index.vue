@@ -1,40 +1,33 @@
 <template>
-   <gl-scroll :height="main.height">
-          <app-main :cachedViews="main.cachedViews" />
+   <gl-scroll :height="nHeight">
+          <app-main :cachedViews="cachedViews" />
       </gl-scroll>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import glScroll from '@/components/GL-Scroll'
+import GlScroll from '@/components/GL-Scroll'
 import AppMain from './AppMain'
+import pub from '../mixins/public'
 const EXCLUDE = 124
 /**
  * 默认颜色
  */
 export default {
   name: 'GLAppMain',
+  mixins: [pub],
   components: {
     AppMain,
-    glScroll
+    GlScroll
   },
   computed: {
     ...mapGetters([
       'clientHeight',
       'cachedViews'
     ]),
-    main() {
-      return {
-        height: this.clientHeight - EXCLUDE,
-        cachedViews: this.cachedViews
-      }
+    nHeight() {
+      return this.clientHeight - EXCLUDE
     }
   }
 }
 </script>
-
-<style rel="stylesheet/scss" lang="scss" scoped>
-    .el-main{
-      padding: 0 !important;
-    }
-</style>
